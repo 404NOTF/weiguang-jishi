@@ -315,6 +315,7 @@ function showToast(message) {
 
 function bindEvents() {
   ['#newEntryButton','#emptyAddButton','#floatingAdd'].forEach(selector => $(selector).addEventListener('click', () => openEntry()));
+  $('#cancelEntryButton').addEventListener('click', () => els.entryDialog.close());
   $('#settingsButton').addEventListener('click', () => els.settingsDialog.showModal());
   $('#closeSettings').addEventListener('click', () => els.settingsDialog.close());
   $('#brandButton').addEventListener('click', () => scrollTo({top:0,behavior:'smooth'}));
