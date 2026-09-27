@@ -1,0 +1,15 @@
+{
+  "name": "微光纪事 · 开心收藏",
+  "short_name": "微光纪事",
+  "description": "把每一件值得开心的小事，温柔地收起来。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8f6f3",
+  "theme_color": "#11142d",
+  "icons": [
+    {"src":"icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}

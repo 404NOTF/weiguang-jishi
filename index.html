@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+  <meta name="theme-color" content="#11142d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="微光纪事">
+  <meta name="description" content="收藏日常里每一件值得开心的小事。">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>微光纪事</title>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <header class="topbar">
+    <button class="brand" id="brandButton" aria-label="回到首页">
+      <span class="brand-mark">✦</span>
+      <span><b>微光纪事</b><small>把开心，好好收起来</small></span>
+    </button>
+    <button class="round-button" id="settingsButton" aria-label="设置与备份">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-copy">
+        <p class="eyebrow" id="todayLabel">今天</p>
+        <h1>今天，有什么<br><em>值得开心</em>的事？</h1>
+        <p class="hero-sub">哪怕只是风很好、奶茶好喝，<br>也值得被认真收藏。</p>
+      </div>
+      <div class="moon" aria-hidden="true"><span>✦</span></div>
+      <button class="primary-button" id="newEntryButton"><span>＋</span> 记下一件开心事</button>
+    </section>
+
+    <section class="summary" aria-label="开心统计">
+      <article><span id="totalCount">0</span><small>束微光</small></article>
+      <div></div>
+      <article><span id="monthCount">0</span><small>本月收藏</small></article>
+      <div></div>
+      <article><span id="photoCount">0</span><small>张照片</small></article>
+    </section>
+
+    <section class="memory-section">
+      <div class="section-heading">
+        <div><p class="eyebrow">MY LITTLE LIGHTS</p><h2>我的微光</h2></div>
+        <button class="text-button" id="randomButton">随便翻翻 <span>↗</span></button>
+      </div>
+
+      <div class="search-row">
+        <label class="search-box">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg>
+          <input id="searchInput" type="search" placeholder="搜索那些开心的小事…" autocomplete="off">
+        </label>
+        <button class="filter-button" id="favoritesButton" aria-pressed="false" title="只看珍藏">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2-5.5-2.9-5.5 2.9 1-6.2L3 9.6l6.2-.9Z"/></svg>
+        </button>
+      </div>
+
+      <div class="tag-filter" id="tagFilter" aria-label="按标签筛选"></div>
+      <div class="timeline" id="timeline"></div>
+
+      <div class="empty-state" id="emptyState" hidden>
+        <div class="empty-orbit"><span>✦</span></div>
+        <h3>第一束微光，在等你</h3>
+        <p>今天发生的任何一点点开心，<br>都可以从这里开始收藏。</p>
+        <button class="soft-button" id="emptyAddButton">写下第一件</button>
+      </div>
+    </section>
+  </main>
+
+  <button class="floating-add" id="floatingAdd" aria-label="添加开心事">＋</button>
+
+  <dialog class="sheet" id="entryDialog">
+    <form method="dialog" id="entryForm">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <button class="cancel-button" value="cancel" formnovalidate>取消</button>
+        <h2 id="entryDialogTitle">收藏一束微光</h2>
+        <button class="save-button" id="saveEntryButton" value="default">保存</button>
+      </div>
+
+      <label class="field joy-field">
+        <span>此刻的开心</span>
+        <textarea id="entryText" maxlength="2000" placeholder="比如：下班时看见了一场很漂亮的晚霞……" required></textarea>
+        <small><b id="charCount">0</b>/2000</small>
+      </label>
+
+      <div class="photo-preview" id="photoPreview"></div>
+      <label class="photo-picker">
+        <input id="photoInput" type="file" accept="image/*" multiple>
+        <span class="photo-icon">⌑</span>
+        <span><b>添加照片</b><small>一次最多 9 张，会自动压缩保存</small></span>
+        <span>＋</span>
+      </label>
+
+      <div class="two-columns">
+        <label class="field"><span>日期</span><input id="entryDate" type="date" required></label>
+        <label class="field"><span>时间</span><input id="entryTime" type="time" required></label>
+      </div>
+
+      <label class="field">
+        <span>心情</span>
+        <div class="mood-picker" id="moodPicker">
+          <button type="button" data-mood="暖暖的" data-emoji="☀️">☀️<small>暖暖的</small></button>
+          <button type="button" data-mood="小雀跃" data-emoji="✨">✨<small>小雀跃</small></button>
+          <button type="button" data-mood="被治愈" data-emoji="🌙">🌙<small>被治愈</small></button>
+          <button type="button" data-mood="超开心" data-emoji="🥰">🥰<small>超开心</small></button>
+        </div>
+      </label>
+
+      <label class="field">
+        <span>标签 <small>用空格分开</small></span>
+        <input id="entryTags" type="text" maxlength="120" placeholder="例如：学生 妈妈 好吃的">
+      </label>
+    </form>
+  </dialog>
+
+  <dialog class="sheet settings-sheet" id="settingsDialog">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <button class="cancel-button" id="closeSettings">完成</button>
+      <h2>设置与备份</h2><span class="header-spacer"></span>
+    </div>
+    <section class="settings-group">
+      <h3>带走你的微光</h3>
+      <button class="settings-item" id="exportAlbumButton"><span class="settings-icon gold">↗</span><span><b>导出回忆册</b><small>生成一个带文字和照片的 HTML，方便阅读和分享给我</small></span><i>›</i></button>
+      <button class="settings-item" id="exportBackupButton"><span class="settings-icon violet">↓</span><span><b>导出完整备份</b><small>保存 JSON 文件，换手机或误删后可以恢复</small></span><i>›</i></button>
+      <label class="settings-item"><input id="importInput" type="file" accept="application/json,.json"><span class="settings-icon blue">↑</span><span><b>导入备份</b><small>从以前导出的 JSON 恢复记录</small></span><i>›</i></label>
+    </section>
+    <section class="settings-group">
+      <h3>关于记录</h3>
+      <div class="settings-item static"><span class="settings-icon mint">⌁</span><span><b>只属于你</b><small>内容只存放在这台设备，清除浏览器数据前记得备份</small></span></div>
+      <button class="settings-item danger" id="clearAllButton"><span class="settings-icon red">×</span><span><b>清空全部记录</b><small>此操作无法撤销</small></span><i>›</i></button>
+    </section>
+    <p class="signature">给 Lindy 的小小星图 · 2026</p>
+  </dialog>
+
+  <dialog class="detail-dialog" id="detailDialog">
+    <article id="detailContent"></article>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>
