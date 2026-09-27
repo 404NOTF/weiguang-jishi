@@ -23,7 +23,8 @@ const els = {
   favoritesButton: $('#favoritesButton'), entryDialog: $('#entryDialog'), entryForm: $('#entryForm'), entryText: $('#entryText'),
   entryDate: $('#entryDate'), entryTime: $('#entryTime'), entryTags: $('#entryTags'), photoInput: $('#photoInput'),
   photoPreview: $('#photoPreview'), charCount: $('#charCount'), moodPicker: $('#moodPicker'), entryDialogTitle: $('#entryDialogTitle'),
-  settingsDialog: $('#settingsDialog'), detailDialog: $('#detailDialog'), detailContent: $('#detailContent'), toast: $('#toast')
+  settingsDialog: $('#settingsDialog'), detailDialog: $('#detailDialog'), detailContent: $('#detailContent'),
+  importInput: $('#importInput'), toast: $('#toast')
 };
 
 let db;
